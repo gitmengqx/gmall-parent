@@ -40,7 +40,7 @@ public class GmallCacheAspect {
         Object result = null;
         try {
             Object[] args = point.getArgs();
-
+            System.out.println("gmallCache:"+args);
             MethodSignature signature = (MethodSignature) point.getSignature();
             GmallCache gmallCache = signature.getMethod().getAnnotation(GmallCache.class);
             // 前缀
@@ -56,7 +56,7 @@ public class GmallCacheAspect {
             }
             // 初始化分布式锁
             RLock lock = redissonClient.getLock(key);
-            boolean flag = lock.tryLock(10, 10, TimeUnit.SECONDS);
+            boolean flag = lock.tryLock(100, 100, TimeUnit.SECONDS);
             if (flag){
                try {
                    try {

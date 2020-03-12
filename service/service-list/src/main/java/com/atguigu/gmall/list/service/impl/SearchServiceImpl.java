@@ -73,7 +73,6 @@ public class SearchServiceImpl implements SearchService {
                 return searchAttr;
             }).collect(Collectors.toList());
 
-
             goods.setAttrs(searchAttrList);
         }
         //查询sku信息
@@ -83,6 +82,7 @@ public class SearchServiceImpl implements SearchService {
         if (trademark!=null){
             goods.setTmId(trademark.getId());
             goods.setTmName(trademark.getTmName());
+            goods.setTmLogoUrl(trademark.getLogoUrl());
         }
         // 查询分类
         BaseCategoryView baseCategoryView = productFeignClient.getCategoryView(skuInfo.getCategory3Id());
@@ -158,13 +158,17 @@ public class SearchServiceImpl implements SearchService {
             SearchResponseTmVo trademark = new SearchResponseTmVo();
             // 获取品牌Id
              trademark.setTmId((Long.parseLong(((Terms.Bucket) bucket).getKeyAsString())));
-            //            trademark.setTmId(Long.parseLong(bucket.getKeyAsString()));
+            //  trademark.setTmId(Long.parseLong(bucket.getKeyAsString()));
             // 获取品牌名称
             Map<String, Aggregation> tmIdSubMap = ((Terms.Bucket) bucket).getAggregations().asMap();
             ParsedStringTerms tmNameAgg = (ParsedStringTerms) tmIdSubMap.get("tmNameAgg");
             String tmName = tmNameAgg.getBuckets().get(0).getKeyAsString();
 
             trademark.setTmName(tmName);
+            ParsedStringTerms tmLogoUrlAgg = (ParsedStringTerms) tmIdSubMap.get("tmLogoUrlAgg");
+            String tmLogoUrl = tmLogoUrlAgg.getBuckets().get(0).getKeyAsString();
+            trademark.setTmLogoUrl(tmLogoUrl);
+
             return trademark;
         }).collect(Collectors.toList());
         searchResponseVo.setTrademarkList(trademarkList);
@@ -317,7 +321,8 @@ public class SearchServiceImpl implements SearchService {
 
         //  设置品牌聚合
         TermsAggregationBuilder termsAggregationBuilder = AggregationBuilders.terms("tmIdAgg").field("tmId")
-                .subAggregation(AggregationBuilders.terms("tmNameAgg").field("tmName"));
+                .subAggregation(AggregationBuilders.terms("tmNameAgg").field("tmName"))
+                .subAggregation(AggregationBuilders.terms("tmLogoUrlAgg").field("tmLogoUrl"));
         searchSourceBuilder.aggregation(termsAggregationBuilder);
 
         //  设置平台属性聚合

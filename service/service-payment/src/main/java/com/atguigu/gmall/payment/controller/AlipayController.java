@@ -59,6 +59,7 @@ public class AlipayController {
         } catch (AlipayApiException e) {
             e.printStackTrace();
         }
+        System.out.println(paramMap);
         // 交易状态
         String trade_status = paramMap.get("trade_status");
         String out_trade_no = paramMap.get("out_trade_no");

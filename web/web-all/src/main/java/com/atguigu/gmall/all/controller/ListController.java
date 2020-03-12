@@ -23,6 +23,7 @@ public class ListController {
 
     @GetMapping("list.html")
     public String search(SearchParam searchParam, Model model){
+        searchParam.setPageSize(5);
         Result<Map> list = listFeignClient.list(searchParam);
         model.addAllAttributes(list.getData());
 

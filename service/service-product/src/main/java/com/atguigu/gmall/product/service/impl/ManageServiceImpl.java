@@ -14,7 +14,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
@@ -258,9 +257,9 @@ public class ManageServiceImpl implements ManageService {
     @Override
     @GmallCache(prefix = RedisConst.SKUKEY_PREFIX)
     public SkuInfo getSkuInfo(Long skuId) {
-        // return getSkuInfoRedissonLock(skuId);
-        //          return getSkuInfoRedisSet(skuId);
-        //         return getSkuInfoRedisson(skuId);
+        //        return getSkuInfoRedissonLock(skuId);
+        //        return getSkuInfoRedisSet(skuId);
+        //        return getSkuInfoRedisson(skuId);
         //        return getSkuInfoDB(skuId);
         return getSkuInfoDB(skuId);
     }
@@ -378,6 +377,7 @@ public class ManageServiceImpl implements ManageService {
     }
 
     @Override
+//    @GmallCache(prefix = "spuSale")
     public List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId) {
         return spuSaleAttrMapper.selectSpuSaleAttrListCheckBySku(skuId,spuId);
     }

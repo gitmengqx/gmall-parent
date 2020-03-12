@@ -4,7 +4,6 @@ import com.atguigu.gmall.cart.service.CartService;
 import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.common.util.AuthContextHolder;
 import com.atguigu.gmall.model.cart.CartInfo;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;

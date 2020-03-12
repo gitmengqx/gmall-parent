@@ -87,6 +87,9 @@ public class PaymentServiceImpl implements PaymentService {
         // 关闭paymentInfo
         QueryWrapper<PaymentInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("order_id", orderId);
+        Integer count = paymentInfoMapper.selectCount(queryWrapper);
+        if(null == count || count.intValue() == 0) return;
+
         PaymentInfo paymentInfoUp = new PaymentInfo();
         paymentInfoUp.setPaymentStatus(PaymentStatus.ClOSED.name());
         paymentInfoMapper.update(paymentInfoUp, queryWrapper);

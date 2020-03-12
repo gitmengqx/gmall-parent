@@ -74,16 +74,16 @@ public class AuthGlobalFilter implements GlobalFilter{
             // 将 userId 传递给后端
             if (!StringUtils.isEmpty(userId)){
                 request.mutate().header("userId",userId).build();
-                // 将现在的request 变成 exchange对象
-                return chain.filter(exchange.mutate().request(request).build());
+
             }
             if (!StringUtils.isEmpty(userTempId)){
                 request.mutate().header("userTempId",userTempId).build();
                 // 将现在的request 变成 exchange对象
-                return chain.filter(exchange.mutate().request(request).build());
+//                return chain.filter(exchange.mutate().request(request).build());
             }
+            // 将现在的request 变成 exchange对象
+            return chain.filter(exchange.mutate().request(request).build());
         }
-
         return chain.filter(exchange);
     }
 

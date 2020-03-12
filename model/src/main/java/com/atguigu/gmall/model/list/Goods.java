@@ -34,6 +34,9 @@ public class Goods {
     @Field(type = FieldType.Keyword)
     private String tmName;
 
+    @Field(type = FieldType.Keyword)
+    private String tmLogoUrl;
+
     @Field(type = FieldType.Long)
     private Long category1Id;
 

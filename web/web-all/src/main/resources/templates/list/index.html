@@ -12,6 +12,19 @@
     <div th:include="common/head :: head"></div>
 </head>
 
+<script >
+    $(function () {
+        $('.trademark').hover(function(){
+            /*显示品牌名称*/
+            $(this).children("div").show()
+            $(this).children("img").hide()
+        },function(){
+            // alert("come on!")
+            $(this).children("div").hide()
+            $(this).children("img").show()
+        });
+    })
+</script>
 <body>
 <!-- 头部栏位 -->
 <div th:include="common/header :: header"></div>
@@ -74,16 +87,15 @@
                 <div class="value logos">
                     <ul class="logo-list">
                         <li th:each="trademark:${trademarkList}">
-                            <a th:href="${urlParam}+'&trademark='+${trademark.tmId}+':'+${trademark.tmName}+'&order='+${searchParam.order}" th:text="${trademark.tmName}">属性值111</a>
+                            <!--th:text="${trademark.tmName}"-->
+                            <a class="trademark" style="text-decoration: none;color: red" th:href="${urlParam}+'&trademark='+${trademark.tmId}+':'+${trademark.tmName}+'&order='+${searchParam.order}" th:title="${trademark.tmName}" >
+                                <img th:src="${trademark.tmLogoUrl}">
+                                <div th:text="${trademark.tmName}" style="display: none"></div>
+                            </a>
                         </li>
                     </ul>
                 </div>
-                <!--<div class="ext">-->
-                    <!--<a href="javascript:void(0);" class="sui-btn">多选</a>-->
-                    <!--<a href="javascript:void(0);">更多</a>-->
-                <!--</div>-->
             </div>
-
 
             <div class="type-wrap" th:each="baseAttrInfo:${attrsList}" th:unless="${#strings.contains(urlParam, 'props='+baseAttrInfo.attrId)}">
                 <div class="fl key" th:text="${baseAttrInfo.attrName}">网络制式</div>

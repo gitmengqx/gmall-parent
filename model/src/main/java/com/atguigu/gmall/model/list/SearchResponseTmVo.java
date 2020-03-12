@@ -11,5 +11,7 @@ public class SearchResponseTmVo implements Serializable {
     private Long tmId;
     //属性名称
     private String tmName;//网络制式，分类
+    //图片名称
+    private String tmLogoUrl;//网络制式，分类
 }
 
